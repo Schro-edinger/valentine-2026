@@ -32,7 +32,7 @@
   <div class="flex items-center justify-center h-screen">
     <div class="flex flex-col items-center p-4">
       <img id="imageDisplay" src="https://media1.giphy.com/media/v1.Y2lkPTc5MGI3NjExb3R2eGthcml1cDBmd2dianF2c2hmbDY0dnozcnprbHcxY2R4MWpudiZlcD12MV9pbnRlcm5hbF9naWZfYnlfaWQmY3Q9Zw/9ZsHoKnjg4ykx3mzTR/giphy.gif" alt="Cute kitten with flowers" class="rounded-md h-[300px]" style="object-fit: cover;" />
-      <h2 id="valentineQuestion" class="text-4xl font-bold italic text-[#bd1e59] my-4">Violet Maake Gesare, my pookie bear, will you be my Valentine?💖</h2>
+      <h2 id="valentineQuestion" class="text-4xl font-bold italic text-[#bd1e59] my-4">Violet Maake Gesare, my jelly bean, my princess, will you be my Valentine?💖</h2>
       <div class="flex gap-4 pt-[20px] items-center" id="responseButtons">
         <button id="yesButton"
           class="bounce2 inline-flex items-center justify-center whitespace-nowrap rounded-md text-[20px] font-medium disabled:pointer-events-none disabled:opacity-50 hover:bg-green-400 min-h-12 min-w-[75px] px-4 py-2 bg-green-500 text-white transition">
@@ -85,10 +85,10 @@ noButton.addEventListener('click', function() {
     if (noClickCount < 6) {
       noButton.textContent = [
         "No",
-        "Are you sure?",
-        "Bubby please",
-        "Bubby, don't do this to me :(",
-        "Bubby, you're not being nice",
+        "Are you sure? I will buy you shawarma",
+        "Pretty please, I will give neck kisses",
+        "Jelly bean, don't do this to me :(",
+        "Jelly bean, you're not being nice",
         "HMPH!! YOU DON'T LOVE ME!"
       ][noClickCount];
     }
@@ -121,7 +121,7 @@ yesButton.addEventListener('click', async () => {
   imageDisplay.style.objectFit = "contain";
 
   // 4) Update text + hide buttons + confetti
-  valentineQuestion.textContent = "YAYYY 💖 I love you Indigo! - From Batman...oooh, Telvin";
+  valentineQuestion.textContent = "YAYYY 💖 I love you Jelly bean! - From Batman...oooh, Telvin";
   responseButtons.style.display = "none";
   confetti();
 });
@@ -129,3 +129,4 @@ yesButton.addEventListener('click', async () => {
 </body>
 
 </html>
+
