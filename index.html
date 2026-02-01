@@ -1,0 +1,130 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Valentines Day</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+  <style>
+    .gradient-background {
+      background: rgb(255, 208, 229);
+      background: linear-gradient(180deg, rgba(255, 208, 229, 1) 0%, rgba(255, 232, 242, 1) 36%, rgba(255, 255, 255, 1) 100%);
+    }
+
+    .bounce2 {
+      animation: bounce2 2s ease infinite;
+    }
+
+    @keyframes bounce2 {
+      0%, 20%, 50%, 80%, 100% {
+        transform: translateY(0);
+      }
+      40% {
+        transform: translateY(-20px);
+      }
+      60% {
+        transform: translateY(-10px);
+      }
+    }
+  </style>
+</head>
+<body class="gradient-background">
+  <div class="flex items-center justify-center h-screen">
+    <div class="flex flex-col items-center p-4">
+      <img id="imageDisplay" src="https://media1.giphy.com/media/v1.Y2lkPTc5MGI3NjExb3R2eGthcml1cDBmd2dianF2c2hmbDY0dnozcnprbHcxY2R4MWpudiZlcD12MV9pbnRlcm5hbF9naWZfYnlfaWQmY3Q9Zw/9ZsHoKnjg4ykx3mzTR/giphy.gif" alt="Cute kitten with flowers" class="rounded-md h-[300px]" style="object-fit: cover;" />
+      <h2 id="valentineQuestion" class="text-4xl font-bold italic text-[#bd1e59] my-4">Bubby, will you be my Valentine?💖</h2>
+      <div class="flex gap-4 pt-[20px] items-center" id="responseButtons">
+        <button id="yesButton"
+          class="bounce2 inline-flex items-center justify-center whitespace-nowrap rounded-md text-[20px] font-medium disabled:pointer-events-none disabled:opacity-50 hover:bg-green-400 min-h-12 min-w-[75px] px-4 py-2 bg-green-500 text-white transition">
+          Yes
+        </button>
+        <button id="noButton"
+          class="inline-flex items-center justify-center whitespace-nowrap rounded-md text-[20px] font-medium transition disabled:pointer-events-none disabled:opacity-50 hover:bg-red-700 h-12 min-w-[75px] w-auto px-4 py-2 bg-red-500 text-white">
+          No
+        </button>
+      </div>
+    </div>
+  </div>
+
+  <script type="module">
+    import confetti from 'https://cdn.skypack.dev/canvas-confetti';
+    const yesButton = document.getElementById('yesButton');
+    const noButton = document.getElementById('noButton');
+    const imageDisplay = document.getElementById('imageDisplay');
+    const valentineQuestion = document.getElementById('valentineQuestion');
+    const responseButtons = document.getElementById('responseButtons');
+  
+    let noClickCount = 0;
+    let buttonHeight = 48; // Starting height in pixels
+    let buttonWidth = 80;
+    let fontSize = 20; // Starting font size in pixels
+    const imagePaths = [
+      "https://media1.giphy.com/media/v1.Y2lkPTc5MGI3NjExb3R2eGthcml1cDBmd2dianF2c2hmbDY0dnozcnprbHcxY2R4MWpudiZlcD12MV9pbnRlcm5hbF9naWZfYnlfaWQmY3Q9Zw/9ZsHoKnjg4ykx3mzTR/giphy.gif",
+      "https://media0.giphy.com/media/v1.Y2lkPTc5MGI3NjExcnFkYmtqMXMxYzk0dmwxaDRzbjk5emNieHMyMXY0ZnhoeWdjY2poYyZlcD12MV9pbnRlcm5hbF9naWZfYnlfaWQmY3Q9Zw/zu8DrkFiuz8JO/giphy.gif",
+      "https://media2.giphy.com/media/v1.Y2lkPTc5MGI3NjExZ25iOHo5bWg2cG55cTFtbzB2OXM5ZjB5ZWJsNzN2Y2Fnc2dwZGw4bCZlcD12MV9pbnRlcm5hbF9naWZfYnlfaWQmY3Q9Zw/e1Tf1eOo6976zuGv3C/giphy.gif",
+      "https://media3.giphy.com/media/v1.Y2lkPTc5MGI3NjExcHVtZ2pqYnZtbnM5MWVoaTE3Njlqd2Y3MXFjcGJ4amV6enl5cHZmZCZlcD12MV9pbnRlcm5hbF9naWZfYnlfaWQmY3Q9Zw/X0QKGRNCxnwWs/giphy.gif",
+      "https://media3.giphy.com/media/v1.Y2lkPTc5MGI3NjExZTE0Z2xrYzhnZmR1N2t6d3Y1ZWt6cmJrOHM5ZjNja2tmbnkxaTc0MiZlcD12MV9pbnRlcm5hbF9naWZfYnlfaWQmY3Q9Zw/fFa05KbZowXiEIyRse/giphy.gif",
+      "https://media0.giphy.com/media/v1.Y2lkPTc5MGI3NjExb2t1MHc2ZTN3MTN4eTZibDlsejQ0bGFoNTI4bG5uZGtiZDBjbjRlcCZlcD12MV9pbnRlcm5hbF9naWZfYnlfaWQmY3Q9Zw/0Q6BkuxFQWoFEPmPB9/giphy.gif",
+      "https://media0.giphy.com/media/v1.Y2lkPTc5MGI3NjExbDkzdmJ2cGExcWFjamxpc29tZWJqdzgwbTlhanRmMHZ1YTd5dnE4ciZlcD12MV9pbnRlcm5hbF9naWZfYnlfaWQmY3Q9Zw/xOvhMKk3EyS1LKQtkK/giphy.gif"
+    ];
+  
+noButton.addEventListener('click', function() {
+  if (noClickCount < 5) {
+    noClickCount++;
+
+    imageDisplay.src = imagePaths[noClickCount];
+
+    buttonHeight += 25;
+    buttonWidth += 25;
+    fontSize += 15;
+
+    yesButton.style.height = `${buttonHeight}px`;
+    yesButton.style.width = `${buttonWidth}px`;
+    yesButton.style.fontSize = `${fontSize}px`;
+
+    if (noClickCount < 6) {
+      noButton.textContent = [
+        "No",
+        "Are you sure?",
+        "Bubby please",
+        "Bubby, don't do this to me :(",
+        "Bubby, you're not being nice",
+        "HMPH!! YOU DON'T LOVE ME!"
+      ][noClickCount];
+    }
+
+    // 👇 NO button runs away
+    noButton.style.position = "absolute";
+    noButton.style.left = `${Math.random() * 60 + 20}%`;
+	noButton.style.top = `${Math.random() * 60 + 20}%`;
+  }
+});
+  
+yesButton.addEventListener('click', async () => {
+  // 1) Try to make the BROWSER go fullscreen
+  try {
+    if (!document.fullscreenElement) {
+      await document.documentElement.requestFullscreen();
+    }
+  } catch (e) {
+    // Fullscreen can fail on some browsers/settings—safe to ignore
+    console.log("Fullscreen request failed:", e);
+  }
+
+  // 2) Switch to your YES gif (this can be big, but not covering text)
+  imageDisplay.src =
+    "https://media0.giphy.com/media/v1.Y2lkPTc5MGI3NjExbDkzdmJ2cGExcWFjamxpc29tZWJqdzgwbTlhanRmMHZ1YTd5dnE4ciZlcD12MV9pbnRlcm5hbF9naWZfYnlfaWQmY3Q9Zw/xOvhMKk3EyS1LKQtkK/giphy.gif";
+
+  // 3) Make the image larger (but NOT full screen overlay)
+  imageDisplay.style.height = "60vh";
+  imageDisplay.style.width = "auto";
+  imageDisplay.style.objectFit = "contain";
+
+  // 4) Update text + hide buttons + confetti
+  valentineQuestion.textContent = "YAYYY 💖 I love you Bubby! - Pooks :D";
+  responseButtons.style.display = "none";
+  confetti();
+});
+  </script>  
+</body>
+</html>
